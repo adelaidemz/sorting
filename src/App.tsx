@@ -34,6 +34,11 @@ function App() {
                     boxSize={15} 
                     sortFn={fn.selectionSort}
                 />
+                <Sort title="Insertion Sort"
+                    colorArray={[...colorArray]}
+                    boxSize={15}
+                    sortFn={fn.insertionSort}
+                />
             </div> 
         </>
     )

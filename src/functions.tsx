@@ -24,3 +24,21 @@ export function selectionSort(colorArray: Color[], outerLoop: number) {
     
     return (outerLoop + 1);
 }
+
+export function insertionSort(colorArray: Color[], outerLoop: number) {
+    if (outerLoop > 250) {
+       console.log(colorArray.length)
+    }
+
+    const key = colorArray[outerLoop];
+
+    let i = outerLoop - 1;
+    while (i >= 0 && colorArray[i].order > key.order) {
+        colorArray[i + 1] = colorArray[i];
+        i--;
+    }
+    colorArray[i + 1] = key;
+    
+    return (outerLoop + 1);
+}
+
