@@ -7,7 +7,7 @@ const STATUS = {
     started: 1,
     paused: 2,
     finished: 3,
-  }
+}
 
 const GRID_SIZE = 16
 const NUM_BOXES = GRID_SIZE * GRID_SIZE
@@ -101,10 +101,9 @@ function App() {
                         setStatus(status === STATUS.started ? STATUS.paused : STATUS.started)
                     }
                 }}>
-
-                    {status === (STATUS.default || STATUS.paused) ? "Start"
+                    {status === STATUS.finished ? "Shuffle"
                         : status === STATUS.started ? "Stop"
-                        : "Shuffle"}
+                        : "Start"}
                 </button>
             </div>
         </>
