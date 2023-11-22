@@ -1,18 +1,12 @@
-// type HexColor = `#${string}`;
-// type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
-export type RGB = {R: number, G: number, B: number};
-
 interface BoxProps {
-    // R: number,
-    // G: number,
-    // B: number,
-    hue: RGB
+    hue: RGB,
+    boxSize: number
 }
-export function Box({ hue }: BoxProps) {
+export default function Box({ hue, boxSize }: BoxProps) {
     const styles = {
         background: `rgb(${hue.R}, ${hue.G}, ${hue.B})`,
-        height: "20px",
-        width: "20px"
+        height: `${boxSize}px`,
+        width: `${boxSize}px`
     }
 
     return (

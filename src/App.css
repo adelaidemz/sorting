@@ -5,16 +5,18 @@
   text-align: center;
 }
 
-.grid-container {
+.base-grid {
   display: grid;
-  gap: 5px;
+  gap: 50px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sort-grid {
+  display: grid;
+  gap: 3px;
   grid-template-columns: repeat(16, 1fr);
 }
 
 .card {
   padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
