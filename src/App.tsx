@@ -20,7 +20,7 @@ const blue = 0 // Math.floor(Math.random() * (256 - (4 * NUM_BOXES)))
 // const startColor = Math.floor(Math.random() * (MAX_COLOR - 10 * NUM_BOXES));
 
 const colorArray = Array.from ({ length: NUM_BOXES },
-        (value, index) => {
+        (_value, index) => {
             const rgb : RGB = {R: red, G: green, B: (blue + 1 * index)};
             return ({ order: index, rgb})
         }
@@ -43,31 +43,29 @@ function App() {
     const [outerLoop, setOuterLoop] = useState(0);
     // const [intervalID, setIntervalID] = useState(0);
 
-    const animationCallback = () => {
-        // sort inner loop
-        let smallest = outerLoop; // index of current smallest ordered Box
-        for (let j = outerLoop + 1; j < NUM_BOXES; j++) {
-            if (colorArray[j].order < colorArray[smallest].order) {
-                smallest = j;
-            }
-        }
-
-        if (smallest != outerLoop) {
-            [colorArray[outerLoop], colorArray[smallest]] = [colorArray[smallest], colorArray[outerLoop]];
-        }
-        
-        setOuterLoop(outerLoop => outerLoop + 1);
-
-        if (outerLoop >= NUM_BOXES) {
-            setStatus(STATUS.finished);
-        }
-    }
-
     useEffect(() => {
         let id = 0;
         switch (status){
             case STATUS.started:
-                id = setInterval(animationCallback, 50);
+                id = setInterval( () => {
+                    // sort inner loop
+                    let smallest = outerLoop; // index of current smallest ordered Box
+                    for (let j = outerLoop + 1; j < NUM_BOXES; j++) {
+                        if (colorArray[j].order < colorArray[smallest].order) {
+                            smallest = j;
+                        }
+                    }
+            
+                    if (smallest != outerLoop) {
+                        [colorArray[outerLoop], colorArray[smallest]] = [colorArray[smallest], colorArray[outerLoop]];
+                    }
+                    
+                    setOuterLoop(outerLoop => outerLoop + 1);
+            
+                    if (outerLoop >= NUM_BOXES) {
+                        setStatus(STATUS.finished);
+                    }
+                }, 50);
                 break;
             case STATUS.paused:
             case STATUS.finished:
@@ -91,7 +89,7 @@ function App() {
                     </div>
                 ))}
             </div>
-            
+
             <div className="card">
                 <button onClick={() => {
                     if (status === STATUS.finished) {

@@ -1,5 +1,5 @@
-type HexColor = `#${string}`;
-type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+// type HexColor = `#${string}`;
+// type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 export type RGB = {R: number, G: number, B: number};
 
 interface BoxProps {
