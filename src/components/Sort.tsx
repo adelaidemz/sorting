@@ -26,7 +26,7 @@ export default function Sort({ title, arrayData, boxSize, sortFn, status, onStat
             
                     if (outerLoop >= colorArray.length - 1) {
                         onStatusChange("finished");
-                        setOuterLoop(0);
+                        // setOuterLoop(0);
                     }
                 }, 25);
                 break;

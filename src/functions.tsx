@@ -6,6 +6,53 @@ export function shuffleColors(array : Color[]) {
     }
 }
 
+class ColorChange {
+    value: number;
+    increment: boolean;
+
+    constructor(value: number, increment: boolean) {
+        this.value = value;
+        this.increment = increment;
+      }
+
+    changeValue() {
+        if (this.value === 255) this.increment = false;
+        if (this.value === 0) this.increment = true;
+
+        if (this.increment) this.value ++
+        else this.value --
+    }
+}
+
+// setup initial colors
+export function setupColors(gridSize: number) {
+    const numBoxes = gridSize * gridSize
+
+    const red: ColorChange = new ColorChange( Math.floor(Math.random() * 255), true)
+    const green: ColorChange = new ColorChange( Math.floor(Math.random() * 255), false)
+    const blue: ColorChange = new ColorChange( Math.floor(Math.random() * 255), true)
+    // const green =  Math.floor(Math.random() * 256)
+    // const blue = 255 // Math.floor(Math.random() * (256 - (4 * NUM_BOXES)))
+
+    const colorArray: Color[] = Array.from ({ length: numBoxes },
+        (_value, index) => {
+            // red.changeValue();
+            green.changeValue();
+            blue.changeValue();
+            const rgb : RGB = {
+                R: red.value, 
+                G: green.value,  
+                B: blue.value, 
+            }
+            return ({ order: index, rgb})
+        }
+    );
+
+    shuffleColors(colorArray);
+
+    return colorArray;
+}
+
 
 //// SORTING
 

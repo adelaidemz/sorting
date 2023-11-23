@@ -20,7 +20,6 @@ declare type Color = {
 
 declare type Algorithm = {
     name: string,
-    status: STATUS,
     function: (array: Color[], outerLoop: number) => number;
 };
 
