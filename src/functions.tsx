@@ -22,14 +22,10 @@ export function selectionSort(colorArray: Color[], outerLoop: number) {
         [colorArray[outerLoop], colorArray[smallest]] = [colorArray[smallest], colorArray[outerLoop]];
     }
     
-    return (outerLoop + 1);
+    return colorArray; // (outerLoop + 1);
 }
 
 export function insertionSort(colorArray: Color[], outerLoop: number) {
-    if (outerLoop > 250) {
-       console.log(colorArray.length)
-    }
-
     const key = colorArray[outerLoop];
 
     let i = outerLoop - 1;
@@ -39,6 +35,6 @@ export function insertionSort(colorArray: Color[], outerLoop: number) {
     }
     colorArray[i + 1] = key;
     
-    return (outerLoop + 1);
+    return colorArray; // outerLoop + 1; //[outerLoop + 1, colorArray];
 }
 

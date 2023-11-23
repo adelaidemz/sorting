@@ -18,5 +18,11 @@ declare type Color = {
     rgb: RGB
 };
 
+declare type Algorithm = {
+    name: string,
+    status: STATUS,
+    function: (array: Color[], outerLoop: number) => number;
+};
+
 // type HexColor = `#${string}`;
 // type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;

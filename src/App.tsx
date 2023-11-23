@@ -1,13 +1,19 @@
-// import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Sort from './components/Sort'
 import * as fn from './functions.tsx'
+
+type Algorithm = {
+    name: string,
+    status: STATUS,
+    function: (array: Color[], outerLoop: number) => Color[];
+};
 
 const GRID_SIZE = 16
 const NUM_BOXES = GRID_SIZE * GRID_SIZE
 // const MAX_COLOR = 16777215
 
-// setup colors
+// setup initial colors
 const red = Math.floor(Math.random() * 256)
 const green = 255 //Math.floor(Math.random() * 256)
 const blue = 0 // Math.floor(Math.random() * (256 - (4 * NUM_BOXES)))
@@ -24,25 +30,45 @@ const colorArray: Color[] = Array.from ({ length: NUM_BOXES },
 
 fn.shuffleColors(colorArray)
 
+const algorithms: Algorithm[] = [
+    { 
+        name: "Selection Sort", 
+        status: "default",
+        function: fn.selectionSort 
+    } as Algorithm,
+    { 
+        name: "Insertion Sort", 
+        status: "default",
+        function: fn.insertionSort 
+    } as Algorithm ]
+    
 function App() {
+    const [statuses, setStatus] = useState<STATUS[]>(Array(algorithms.length - 1).fill("default"));
+    
     return (
         <>
-            <button disabled 
-                title="Coming soon"
-            >
+            <button  
+                title="Start all algorithms"
+                onClick={() => setStatus(statuses.map(() => "started"))
+            }>
                 Start All
             </button>
+
             <div className="base-grid">
-                <Sort title="Selection Sort" 
-                    colorArray={[...colorArray]}
-                    boxSize={15} 
-                    sortFn={fn.selectionSort}
-                />
-                <Sort title="Insertion Sort"
-                    colorArray={[...colorArray]}
-                    boxSize={15}
-                    sortFn={fn.insertionSort}
-                />
+                {algorithms.map((a, index) => (
+                    <Sort title={ a.name }
+                        key={ index }
+                        boxSize={ 15 }
+                        arrayData={ colorArray }
+                        sortFn={ algorithms[index].function }
+                        status={ statuses[index] }
+                        onStatusChange={ (status) => {
+                            const newStatus = statuses.slice();
+                            newStatus[index] = status;
+                            setStatus(newStatus);
+                        }}
+                    />
+                ))}
             </div> 
         </>
     )

@@ -5,27 +5,28 @@ import { shuffleColors } from '../functions';
 interface SortProps {
     title: string;
     boxSize: number;
-    colorArray: Color[];
-    sortFn: (array: Color[], outerLoop: number) => number;
-    // status: STATUS;
+    arrayData: Color[];
+    sortFn: (array: Color[], outerLoop: number) => Color[];
+    status: STATUS;
+    onStatusChange: (status: STATUS) => void;
 }
 
-export default function Sort({ title, colorArray, boxSize, sortFn }: SortProps) {
-    // setup animation 
-    const [status, onStatusChange] = useState("default");
+export default function Sort({ title, arrayData, boxSize, sortFn, status, onStatusChange }: SortProps) {
     const [outerLoop, setOuterLoop] = useState(0);
-
+    const [colorArray, setColorArray] = useState(arrayData);
+  
     useEffect(() => {
         let id = 0;
         switch (status){
             case "started":
                 id = setInterval( () => {
                     // sort inner loop
-                    setOuterLoop(sortFn(colorArray, outerLoop));
+                    setColorArray(sortFn(colorArray.slice(), outerLoop));
+                    setOuterLoop(outerLoop + 1);
             
                     if (outerLoop >= colorArray.length - 1) {
                         onStatusChange("finished");
-                        // setOuterLoop(0);
+                        setOuterLoop(0);
                     }
                 }, 25);
                 break;
