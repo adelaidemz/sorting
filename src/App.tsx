@@ -31,10 +31,13 @@ function App() {
             <button  
                 title="Start all algorithms"
                 onClick={() => {
-                    setStatus(statuses.map(() => "started"))
+                    const newState = statuses.filter((i) => i=="started").length == statuses.length 
+                        ? "paused" : "started";
+                    setStatus(statuses.map(() => newState))
                 } 
             }>
-                Start All
+                {statuses.filter((i) => i=="started").length == statuses.length 
+                    ? "Stop All" : "Start All"}
             </button>
 
             <div className="base-grid">
