@@ -85,3 +85,19 @@ export function insertionSort(colorArray: Color[], outerLoop: number) {
     return colorArray; // outerLoop + 1; //[outerLoop + 1, colorArray];
 }
 
+export function bubbleSort(colorArray: Color[], outerLoop: number) {
+    // let swapped = false
+
+    for (let j = 0; j < colorArray.length-1-outerLoop; j++) {
+        // swap with neighbor if wrong order
+        if (colorArray[j].order > colorArray[j+1].order) {
+            [colorArray[j], colorArray[j+1]] = [colorArray[j+1], colorArray[j]];
+            // swapped = true;
+        }
+    }
+    // should break out of outer loop if no swaps made
+    // if (!swapped)
+    //     console.log("swapped")
+
+    return colorArray;
+}

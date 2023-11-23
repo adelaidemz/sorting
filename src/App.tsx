@@ -19,7 +19,12 @@ const algorithms: Algorithm[] = [
     { 
         name: "Insertion Sort", 
         function: fn.insertionSort 
-    } as Algorithm ]
+    } as Algorithm,
+    { 
+        name: "Bubble Sort", 
+        function: fn.bubbleSort
+    } as Algorithm,
+ ]
 
     
 function App() {
