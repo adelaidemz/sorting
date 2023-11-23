@@ -9,13 +9,13 @@ const NUM_BOXES = GRID_SIZE * GRID_SIZE
 
 // setup colors
 const red = Math.floor(Math.random() * 256)
-const green = Math.floor(Math.random() * 256)
+const green = 255 //Math.floor(Math.random() * 256)
 const blue = 0 // Math.floor(Math.random() * (256 - (4 * NUM_BOXES)))
 // const startColor = Math.floor(Math.random() * (MAX_COLOR - 10 * NUM_BOXES));
 
 const colorArray: Color[] = Array.from ({ length: NUM_BOXES },
     (_value, index) => {
-        const rgb : RGB = {R: red, G: green, B: (blue + 1 * index)};
+        const rgb : RGB = {R: red, G: (green - index), B: (blue + 1 * index)};
         return ({ order: index, rgb})
     }
     // (value, index) => ({ idx: index, R: red, G: green, B: (blue + 4 * index)})
@@ -27,7 +27,11 @@ fn.shuffleColors(colorArray)
 function App() {
     return (
         <>
-            <button>Start All</button>
+            <button disabled 
+                title="Coming soon"
+            >
+                Start All
+            </button>
             <div className="base-grid">
                 <Sort title="Selection Sort" 
                     colorArray={[...colorArray]}
