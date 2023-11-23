@@ -1,3 +1,12 @@
+declare type STATUS = "default" | "started" | "paused" | "finished";
+
+// enum STATUS {
+//     default,
+//     started,
+//     paused,
+//     finished,
+// }
+
 declare type RGB = {
     R: number, 
     G: number, 

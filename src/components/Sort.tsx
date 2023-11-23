@@ -2,40 +2,35 @@ import { useState, useEffect } from 'react';
 import Box from './Box'
 import { shuffleColors } from '../functions';
 
-const STATUS = {
-    default: 0,
-    started: 1,
-    paused: 2,
-    finished: 3,
-}
-
 interface SortProps {
     title: string;
     boxSize: number;
     colorArray: Color[];
     sortFn: (array: Color[], outerLoop: number) => number;
+    // status: STATUS;
 }
 
 export default function Sort({ title, colorArray, boxSize, sortFn }: SortProps) {
     // setup animation 
-    const [status, setStatus] = useState(STATUS.default);
+    const [status, onStatusChange] = useState("default");
     const [outerLoop, setOuterLoop] = useState(0);
 
     useEffect(() => {
         let id = 0;
         switch (status){
-            case STATUS.started:
+            case "started":
                 id = setInterval( () => {
                     // sort inner loop
                     setOuterLoop(sortFn(colorArray, outerLoop));
             
                     if (outerLoop >= colorArray.length - 1) {
-                        setStatus(STATUS.finished);
+                        onStatusChange("finished");
+                        // setOuterLoop(0);
                     }
-                }, 1);
+                }, 25);
                 break;
-            case STATUS.paused:
-            case STATUS.finished:
+            case "paused":
+            case "finished":
                 clearInterval(id);
                 break;
         }
@@ -58,17 +53,17 @@ export default function Sort({ title, colorArray, boxSize, sortFn }: SortProps) 
 
             <div className="card">
                 <button onClick={() => {
-                    if (status === STATUS.finished) {
+                    if (status === "finished") {
                         setOuterLoop(0);
                         shuffleColors(colorArray);
-                        setStatus(STATUS.default);
+                        onStatusChange("default");
                     }
                     else {
-                        setStatus(status === STATUS.started ? STATUS.paused : STATUS.started)
+                        onStatusChange(status === "started" ? "paused" : "started")
                     }
                 }}>
-                    {status === STATUS.finished ? "Shuffle"
-                        : status === STATUS.started ? "Stop"
+                    {status === "finished" ? "Shuffle"
+                        : status === "started" ? "Stop"
                         : "Start"}
                 </button>
                 <p>{outerLoop}</p>
