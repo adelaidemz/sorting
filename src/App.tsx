@@ -32,7 +32,7 @@ function App() {
     
     return (
         <>
-        <p>This is a quick visualizion of a few iterative sorting methods.</p>
+        <p>This is a quick visualization of a few iterative sorting methods.</p>
         <p>Note: each step takes a fixed amount of time for visibility, so the algorithms' actual runtimes are not accounted for. </p>
             {/* <button onClick={() => console.log(statuses)}>Print Statuses</button> */}
             <button  
