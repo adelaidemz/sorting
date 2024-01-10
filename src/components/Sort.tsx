@@ -19,7 +19,7 @@ export default function Sort({ title, arrayData, boxSize, sortFn, status, onStat
         let id = 0;
         switch (status){
             case "started":
-                id = setInterval( () => {
+                id = window.setInterval( () => {
                     // sort inner loop
                     setColorArray(sortFn(colorArray.slice(), outerLoop));
                     setOuterLoop(outerLoop + 1);
@@ -67,7 +67,7 @@ export default function Sort({ title, arrayData, boxSize, sortFn, status, onStat
                         : status === "started" ? "Stop"
                         : "Start"}
                 </button>
-                <p>{outerLoop}</p>
+                {/* <p>{outerLoop}</p> */}
             </div>
         </div>
     )

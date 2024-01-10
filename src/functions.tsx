@@ -6,6 +6,7 @@ export function shuffleColors(array : Color[]) {
     }
 }
 
+// class to help generate color gradients
 class ColorChange {
     value: number;
     increment: boolean;
@@ -19,8 +20,8 @@ class ColorChange {
         if (this.value === 255) this.increment = false;
         if (this.value === 0) this.increment = true;
 
-        if (this.increment) this.value ++
-        else this.value --
+        if (this.increment) this.value ++;
+        else this.value --;
     }
 }
 
