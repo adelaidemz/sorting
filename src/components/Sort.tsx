@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Box from './Box'
 import { shuffleColors } from '../functions';
+import { VStack, Button, Tooltip, SimpleGrid, Flex, Heading } from '@chakra-ui/react'
 
 interface SortProps {
     title: string;
@@ -9,9 +10,10 @@ interface SortProps {
     sortFn: (array: Color[], outerLoop: number) => Color[];
     status: STATUS;
     onStatusChange: (status: STATUS) => void;
+    description: string;
 }
 
-export default function Sort({ title, arrayData, boxSize, sortFn, status, onStatusChange }: SortProps) {
+export default function Sort({ title, arrayData, boxSize, sortFn, status, onStatusChange, description }: SortProps) {
     const [outerLoop, setOuterLoop] = useState(0);
     const [colorArray, setColorArray] = useState(arrayData);
   
@@ -41,19 +43,33 @@ export default function Sort({ title, arrayData, boxSize, sortFn, status, onStat
     }, [status, outerLoop, colorArray]);
 
     return (
-        <div>
-            <h2>{title}</h2>
-
-            <div className="sort-grid">
+        <VStack spacing={6}>
+            <Flex gap={2}>
+                <Heading fontSize="2xl">{title}</Heading>
+                <Tooltip hasArrow 
+                    label={description} 
+                    bg='gray.300' 
+                    color='black'
+                    placement='right'>
+                <img 
+                    src="/sorting/info.svg" 
+                    width={20}
+                />
+                </Tooltip>
+            </Flex>
+            
+            {/* <div className="sort-grid"> */}
+            <SimpleGrid columns={16} spacing='3px'>
                 {colorArray.map((color) => (
                     <div className="grid-item" key={color.order}>
                         <Box hue={color.rgb} boxSize={boxSize}/>
                     </div>
                 ))}
-            </div>
+            </SimpleGrid>
+            {/* </div> */}
 
             <div className="card">
-                <button onClick={() => {
+                <Button onClick={() => {
                     if (status === "finished") {
                         setOuterLoop(0);
                         shuffleColors(colorArray);
@@ -66,9 +82,9 @@ export default function Sort({ title, arrayData, boxSize, sortFn, status, onStat
                     {status === "finished" ? "Shuffle"
                         : status === "started" ? "Stop"
                         : "Start"}
-                </button>
+                </Button>
                 {/* <p>{outerLoop}</p> */}
             </div>
-        </div>
+        </VStack>
     )
 }
